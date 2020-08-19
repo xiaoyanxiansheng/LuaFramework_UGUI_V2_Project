@@ -148,7 +148,7 @@ public static class CustomSettings
         _GT(typeof(PlayMode)),
         _GT(typeof(WrapMode)),
 
-        _GT(typeof(QualitySettings)),
+        // _GT(typeof(QualitySettings)),
         _GT(typeof(RenderSettings)),
 #if UNITY_2019
         _GT(typeof(SkinWeights)),

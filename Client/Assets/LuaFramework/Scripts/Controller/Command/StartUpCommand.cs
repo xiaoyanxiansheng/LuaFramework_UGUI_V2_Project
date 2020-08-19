@@ -15,6 +15,8 @@ public class StartUpCommand : ControllerCommand {
         AppFacade.Instance.RegisterCommand(NotiConst.DISPATCH_MESSAGE, typeof(SocketCommand));
 
         //-----------------初始化管理器-----------------------
+        AppFacade.Instance.AddManager<ResourceUtil>(ManagerName.ResourceUtil);
+        AppFacade.Instance.AddManager<TimerUtil>(ManagerName.TimerManager);
         AppFacade.Instance.AddManager<LuaManager>(ManagerName.Lua);
         /*AppFacade.Instance.AddManager<PanelManager>(ManagerName.Panel);
         AppFacade.Instance.AddManager<SoundManager>(ManagerName.Sound);

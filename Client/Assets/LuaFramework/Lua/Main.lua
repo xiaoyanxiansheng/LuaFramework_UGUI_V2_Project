@@ -12,9 +12,5 @@ end
 function OnApplicationQuit()
 end
 
-print("----1")
-
 -- 游戏逻辑入口
 require "Data/ULua/System/GameMain"
-
-print("----2")

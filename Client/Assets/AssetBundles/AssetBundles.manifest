@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 3202437366
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: assets/exportbundles/ui/gameobject
+      Dependencies: {}

@@ -23,6 +23,10 @@ public class DelegateFactory
 		dict.Add(typeof(System.Action<int>), factory.System_Action_int);
 		dict.Add(typeof(System.Comparison<int>), factory.System_Comparison_int);
 		dict.Add(typeof(System.Func<int,int>), factory.System_Func_int_int);
+		dict.Add(typeof(RequestLoadBundle.OnCreateAssetBundle), factory.RequestLoadBundle_OnCreateAssetBundle);
+		dict.Add(typeof(RequestLoadAsset.OnLoadAsset), factory.RequestLoadAsset_OnLoadAsset);
+		dict.Add(typeof(GameObjectPool.OnCreateGameObject), factory.GameObjectPool_OnCreateGameObject);
+		dict.Add(typeof(TimerUtil.CSFunc), factory.TimerUtil_CSFunc);
 		dict.Add(typeof(UnityEngine.Camera.CameraCallback), factory.UnityEngine_Camera_CameraCallback);
 		dict.Add(typeof(UnityEngine.Application.AdvertisingIdentifierCallback), factory.UnityEngine_Application_AdvertisingIdentifierCallback);
 		dict.Add(typeof(UnityEngine.Application.LowMemoryCallback), factory.UnityEngine_Application_LowMemoryCallback);
@@ -41,6 +45,10 @@ public class DelegateFactory
 		DelegateTraits<System.Action<int>>.Init(factory.System_Action_int);
 		DelegateTraits<System.Comparison<int>>.Init(factory.System_Comparison_int);
 		DelegateTraits<System.Func<int,int>>.Init(factory.System_Func_int_int);
+		DelegateTraits<RequestLoadBundle.OnCreateAssetBundle>.Init(factory.RequestLoadBundle_OnCreateAssetBundle);
+		DelegateTraits<RequestLoadAsset.OnLoadAsset>.Init(factory.RequestLoadAsset_OnLoadAsset);
+		DelegateTraits<GameObjectPool.OnCreateGameObject>.Init(factory.GameObjectPool_OnCreateGameObject);
+		DelegateTraits<TimerUtil.CSFunc>.Init(factory.TimerUtil_CSFunc);
 		DelegateTraits<UnityEngine.Camera.CameraCallback>.Init(factory.UnityEngine_Camera_CameraCallback);
 		DelegateTraits<UnityEngine.Application.AdvertisingIdentifierCallback>.Init(factory.UnityEngine_Application_AdvertisingIdentifierCallback);
 		DelegateTraits<UnityEngine.Application.LowMemoryCallback>.Init(factory.UnityEngine_Application_LowMemoryCallback);
@@ -59,6 +67,10 @@ public class DelegateFactory
 		TypeTraits<System.Action<int>>.Init(factory.Check_System_Action_int);
 		TypeTraits<System.Comparison<int>>.Init(factory.Check_System_Comparison_int);
 		TypeTraits<System.Func<int,int>>.Init(factory.Check_System_Func_int_int);
+		TypeTraits<RequestLoadBundle.OnCreateAssetBundle>.Init(factory.Check_RequestLoadBundle_OnCreateAssetBundle);
+		TypeTraits<RequestLoadAsset.OnLoadAsset>.Init(factory.Check_RequestLoadAsset_OnLoadAsset);
+		TypeTraits<GameObjectPool.OnCreateGameObject>.Init(factory.Check_GameObjectPool_OnCreateGameObject);
+		TypeTraits<TimerUtil.CSFunc>.Init(factory.Check_TimerUtil_CSFunc);
 		TypeTraits<UnityEngine.Camera.CameraCallback>.Init(factory.Check_UnityEngine_Camera_CameraCallback);
 		TypeTraits<UnityEngine.Application.AdvertisingIdentifierCallback>.Init(factory.Check_UnityEngine_Application_AdvertisingIdentifierCallback);
 		TypeTraits<UnityEngine.Application.LowMemoryCallback>.Init(factory.Check_UnityEngine_Application_LowMemoryCallback);
@@ -77,6 +89,10 @@ public class DelegateFactory
 		StackTraits<System.Action<int>>.Push = factory.Push_System_Action_int;
 		StackTraits<System.Comparison<int>>.Push = factory.Push_System_Comparison_int;
 		StackTraits<System.Func<int,int>>.Push = factory.Push_System_Func_int_int;
+		StackTraits<RequestLoadBundle.OnCreateAssetBundle>.Push = factory.Push_RequestLoadBundle_OnCreateAssetBundle;
+		StackTraits<RequestLoadAsset.OnLoadAsset>.Push = factory.Push_RequestLoadAsset_OnLoadAsset;
+		StackTraits<GameObjectPool.OnCreateGameObject>.Push = factory.Push_GameObjectPool_OnCreateGameObject;
+		StackTraits<TimerUtil.CSFunc>.Push = factory.Push_TimerUtil_CSFunc;
 		StackTraits<UnityEngine.Camera.CameraCallback>.Push = factory.Push_UnityEngine_Camera_CameraCallback;
 		StackTraits<UnityEngine.Application.AdvertisingIdentifierCallback>.Push = factory.Push_UnityEngine_Application_AdvertisingIdentifierCallback;
 		StackTraits<UnityEngine.Application.LowMemoryCallback>.Push = factory.Push_UnityEngine_Application_LowMemoryCallback;
@@ -543,6 +559,246 @@ public class DelegateFactory
 	}
 
 	void Push_System_Func_int_int(IntPtr L, System.Func<int,int> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class RequestLoadBundle_OnCreateAssetBundle_Event : LuaDelegate
+	{
+		public RequestLoadBundle_OnCreateAssetBundle_Event(LuaFunction func) : base(func) { }
+		public RequestLoadBundle_OnCreateAssetBundle_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(string param0, UnityEngine.AssetBundle param1, int param2)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.Push(param1);
+			func.Push(param2);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(string param0, UnityEngine.AssetBundle param1, int param2)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.Push(param2);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public RequestLoadBundle.OnCreateAssetBundle RequestLoadBundle_OnCreateAssetBundle(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			RequestLoadBundle.OnCreateAssetBundle fn = delegate(string param0, UnityEngine.AssetBundle param1, int param2) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			RequestLoadBundle_OnCreateAssetBundle_Event target = new RequestLoadBundle_OnCreateAssetBundle_Event(func);
+			RequestLoadBundle.OnCreateAssetBundle d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			RequestLoadBundle_OnCreateAssetBundle_Event target = new RequestLoadBundle_OnCreateAssetBundle_Event(func, self);
+			RequestLoadBundle.OnCreateAssetBundle d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_RequestLoadBundle_OnCreateAssetBundle(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(RequestLoadBundle.OnCreateAssetBundle), L, pos);
+	}
+
+	void Push_RequestLoadBundle_OnCreateAssetBundle(IntPtr L, RequestLoadBundle.OnCreateAssetBundle o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class RequestLoadAsset_OnLoadAsset_Event : LuaDelegate
+	{
+		public RequestLoadAsset_OnLoadAsset_Event(LuaFunction func) : base(func) { }
+		public RequestLoadAsset_OnLoadAsset_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(UnityEngine.Object param0, int param1)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(UnityEngine.Object param0, int param1)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public RequestLoadAsset.OnLoadAsset RequestLoadAsset_OnLoadAsset(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			RequestLoadAsset.OnLoadAsset fn = delegate(UnityEngine.Object param0, int param1) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			RequestLoadAsset_OnLoadAsset_Event target = new RequestLoadAsset_OnLoadAsset_Event(func);
+			RequestLoadAsset.OnLoadAsset d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			RequestLoadAsset_OnLoadAsset_Event target = new RequestLoadAsset_OnLoadAsset_Event(func, self);
+			RequestLoadAsset.OnLoadAsset d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_RequestLoadAsset_OnLoadAsset(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(RequestLoadAsset.OnLoadAsset), L, pos);
+	}
+
+	void Push_RequestLoadAsset_OnLoadAsset(IntPtr L, RequestLoadAsset.OnLoadAsset o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class GameObjectPool_OnCreateGameObject_Event : LuaDelegate
+	{
+		public GameObjectPool_OnCreateGameObject_Event(LuaFunction func) : base(func) { }
+		public GameObjectPool_OnCreateGameObject_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(int param0, int param1)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(int param0, int param1)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public GameObjectPool.OnCreateGameObject GameObjectPool_OnCreateGameObject(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			GameObjectPool.OnCreateGameObject fn = delegate(int param0, int param1) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			GameObjectPool_OnCreateGameObject_Event target = new GameObjectPool_OnCreateGameObject_Event(func);
+			GameObjectPool.OnCreateGameObject d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			GameObjectPool_OnCreateGameObject_Event target = new GameObjectPool_OnCreateGameObject_Event(func, self);
+			GameObjectPool.OnCreateGameObject d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_GameObjectPool_OnCreateGameObject(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(GameObjectPool.OnCreateGameObject), L, pos);
+	}
+
+	void Push_GameObjectPool_OnCreateGameObject(IntPtr L, GameObjectPool.OnCreateGameObject o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class TimerUtil_CSFunc_Event : LuaDelegate
+	{
+		public TimerUtil_CSFunc_Event(LuaFunction func) : base(func) { }
+		public TimerUtil_CSFunc_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public bool Call(float param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			bool ret = func.CheckBoolean();
+			func.EndPCall();
+			return ret;
+		}
+
+		public bool CallWithSelf(float param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			bool ret = func.CheckBoolean();
+			func.EndPCall();
+			return ret;
+		}
+	}
+
+	public TimerUtil.CSFunc TimerUtil_CSFunc(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			TimerUtil.CSFunc fn = delegate(float param0) { return false; };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			TimerUtil_CSFunc_Event target = new TimerUtil_CSFunc_Event(func);
+			TimerUtil.CSFunc d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			TimerUtil_CSFunc_Event target = new TimerUtil_CSFunc_Event(func, self);
+			TimerUtil.CSFunc d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_TimerUtil_CSFunc(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(TimerUtil.CSFunc), L, pos);
+	}
+
+	void Push_TimerUtil_CSFunc(IntPtr L, TimerUtil.CSFunc o)
 	{
 		ToLua.Push(L, o);
 	}

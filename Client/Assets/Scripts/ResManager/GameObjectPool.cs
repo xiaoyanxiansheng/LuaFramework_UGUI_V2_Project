@@ -3,7 +3,10 @@ using System.Collections.Generic;
 
 public class GameObjectPool {
 
-    public delegate void OnCreateGameObject(int instanceId,int requestId);
+    public delegate void OnCreateGameObject(int instanceId, int requestId);
+
+    private static GameObject mPanel_Base = null;
+    public static GameObject Panel_Base { get { return mPanel_Base; } }
 
     public class GameObjectRef
     {
@@ -87,8 +90,8 @@ public class GameObjectPool {
         // UI
         else if(type == 2)
         {
-            GameObject root = GameObject.Find("ui/prefab/uipanel_base");
-            parent = root.transform;
+            if (mPanel_Base == null) mPanel_Base = GameObject.Find("ui/panels/uipanel_base");
+            parent = mPanel_Base.transform;
             son = obj.transform.Find("Core");
             GameObject.Destroy(obj);
         }

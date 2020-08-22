@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ResourceUtil : MonoBehaviour{
 
@@ -17,12 +15,7 @@ public class ResourceUtil : MonoBehaviour{
         return ++requestId;
     }
 
-    /// <summary>
-    /// 异步加载bundle
-    /// </summary>
-    /// <param name="bundleName">bundle名字</param>
-    /// <param name="onCreateAssetBundle">加载成功后的回调</param>
-    /// <returns>请求Id</returns>
+    #region 加载bundle
     public static int CreateAssetBundleAsync(string bundleName, RequestLoadBundle.OnCreateAssetBundle onCreateAssetBundle)
     {
         return RequestLoadBundle.CreateAssetBundleAsync(0,bundleName, onCreateAssetBundle);
@@ -35,6 +28,8 @@ public class ResourceUtil : MonoBehaviour{
     {
         ReferenceBundle.ReleaseBundle(bundleName);
     }
+    #endregion
+    #region 加载资源
     public static int CreateAssetAsync(string assetName , RequestLoadAsset.OnLoadAsset onLoadAsset)
     {
         return RequestLoadAsset.LoadAssetAsync(assetName, onLoadAsset);
@@ -47,16 +42,12 @@ public class ResourceUtil : MonoBehaviour{
     {
         ReferenceObject.ReleaseObject(assetName);
     }
-    /// <summary>
-    /// 创建一个实体
-    /// </summary>
-    /// <param name="type">实体类型 1:GameObject;2:UI</param>
-    /// <param name="assetName">资源名称</param>
-    /// <param name="onCreateGameObject">创建成功回调</param>
-    /// <returns></returns>
+    #endregion
+
+    #region 加载实体
     public static int CreateGameObjectAsync(int type,string assetName, GameObjectPool.OnCreateGameObject onCreateGameObject)
     {
-        int requestId = CreateAssetAsync(assetName,(Object tAsset ,int tRequestId)=> {
+        int requestId = CreateAssetAsync(assetName, (Object tAsset, int tRequestId) => {
             int instanceId = GameObjectPool.AddGameObject(type, assetName, tAsset);
             onCreateGameObject(instanceId, tRequestId);
         });
@@ -70,6 +61,7 @@ public class ResourceUtil : MonoBehaviour{
     {
         GameObjectPool.DestoryGameObject(instanceId);
     }
+    #endregion
 
     public static GameObject GetGameObjectById(int instanceId)
     {

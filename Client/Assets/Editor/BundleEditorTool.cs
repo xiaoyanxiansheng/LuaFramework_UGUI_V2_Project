@@ -24,11 +24,11 @@ public class BundleEditorTool {
     /// <summary>
     /// 差异化打包
     /// </summary>
-    [MenuItem("Tools/BuildAllDiff")]
+    // [MenuItem("Tools/BuildAllDiff")]
     public static void BuildAllDiff()
     {
         BuildHelper();
-        BuildPipeline.BuildAssetBundles("Assets/AssetBundles", BuildAssetBundleOptions.None | BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.StandaloneWindows64);
+        BuildPipeline.BuildAssetBundles("Assets/" + PathDefines.S_BundleRootInAssetPath, BuildAssetBundleOptions.None | BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.StandaloneWindows64);
     }
 
     public static void BuildHelper()
@@ -39,7 +39,7 @@ public class BundleEditorTool {
 
     public static void BuildDelete()
     {
-        string assetBundlePath = Application.dataPath + "/AssetBundles/";
+        string assetBundlePath = PathDefines.S_BundleRootPath;
         if (Directory.Exists(assetBundlePath))
             Directory.Delete(assetBundlePath, true);
         Directory.CreateDirectory(assetBundlePath);
@@ -88,10 +88,11 @@ public class BundleEditorTool {
             // 文件名 不包含路径
             string assetInBundleName = Path.GetFileNameWithoutExtension(assetPath);
             // 文件名 包含路径
-            string assetDirectoryName = assetPath.Replace("Assets+"+ PathDefines.S_BundleExportInAssetPath, string.Empty);
+            string assetDirectoryName = assetPath.Replace("Assets/"+ PathDefines.S_BundleExportInAssetPath, string.Empty);
             assetDirectoryName = string.Format("{0}/{1}", Path.GetDirectoryName(assetDirectoryName), assetInBundleName);
             assetDirectoryName = assetDirectoryName.ToLower();
-           
+            assetDirectoryName = assetDirectoryName.Replace("\\", "/");
+
             string abName = GetABName(assetDirectoryName);
 
             SetABLabel(assetPath, abName);

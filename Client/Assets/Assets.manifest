@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 4229133182
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: assets/exportbundles/ui/uibase
+      Dependencies: {}
+    Info_1:
+      Name: assets/exportbundles/ui/panels/uipanel_test
+      Dependencies: {}

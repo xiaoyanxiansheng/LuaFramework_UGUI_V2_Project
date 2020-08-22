@@ -1,7 +1,16 @@
 ManifestFileVersion: 0
-CRC: 3202437366
+CRC: 1112533660
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: assets/exportbundles/ui/gameobject
+      Name: ui/panels/uipanel_base
+      Dependencies: {}
+    Info_1:
+      Name: ui/panels/uipanel_main
+      Dependencies: {}
+    Info_2:
+      Name: ui/panels/uipanel_main1
+      Dependencies: {}
+    Info_3:
+      Name: ui/panels/uipanel_pop
       Dependencies: {}

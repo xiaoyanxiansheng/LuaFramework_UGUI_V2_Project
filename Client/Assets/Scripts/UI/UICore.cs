@@ -1,38 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using LuaInterface;
+using UnityEngine.Analytics;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using EventTrigger = UnityEngine.EventSystems.EventTrigger;
+using UnityEngine.Events;
 
 public class UICore : MonoBehaviour {
 
     #region enum
+    // UI 类型
+    public enum UIType 
+    {
+        MainUI = 1,
+        PopUI,
+        SonUI,
+    }
     // 控件类型
     public enum ComponentType
     {
         Transform,
         GameObject,
-        Panel,
+        Canvas,
         Label,
         Input,
         Button,
         Texture,
-        Sprite,
-        Progressbar,
         Toggle,
-        BoxCollider,
-        ScrollView,
         UICore,
-        UIGrid,
-        UIWidget,
-        UIPlayTween,
-        TweenScale,
-        UITable,
-        UISlider,
     }
 
     public enum EventType
     {
         Null,
-        Click,
+        PointerClick,
         Press,
     }
     #endregion
@@ -76,6 +78,7 @@ public class UICore : MonoBehaviour {
     #endregion
 
     #region menber
+    public UIType uiType = UIType.MainUI;
     public List<Param> param = new List<Param>();
     public List<ParamArray> paramArray = new List<ParamArray>();
 
@@ -132,6 +135,8 @@ public class UICore : MonoBehaviour {
         {
             RegisterCallBack(t, events[i].EventCallBack, param.transform.gameObject, events[i].eventType);
         }
+
+        t["uiType"] = (int)this.uiType;
     }
 
     public void RegisterCallBack(LuaTable t ,string luaFactionName, GameObject go ,EventType eventType)
@@ -145,8 +150,17 @@ public class UICore : MonoBehaviour {
             return;
         }
 
-        if (eventType == EventType.Click)
+        if (eventType == EventType.PointerClick)
         {
+            var eventCom = go.GetComponent<EventTrigger>();
+            if (eventCom == null) eventCom = go.AddComponent<EventTrigger>();
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerClick;
+            UnityAction<BaseEventData> unityAction = (BaseEventData sender) => {
+                luaFunction.Call(t, sender);
+            };
+            entry.callback.AddListener(unityAction);
+            eventCom.triggers.Add(entry);
             //UIEventListener.Get(go).onClick = (GameObject sender) => { luaFunction.Call(t,sender); };
         }
         else {
@@ -158,7 +172,17 @@ public class UICore : MonoBehaviour {
     {
         cacheParam.Clear();
 
-        foreach(Param v in param)
+        // 清理 设置错误的情况
+        for (int i = param.Count-1; i >= 0; i--)
+        {
+            if (param[i].transform == null) 
+            {
+                param.RemoveAt(i);
+            }
+        }
+
+        // 缓存
+        foreach (Param v in param)
         {
             cacheParam.Add(v);
         }

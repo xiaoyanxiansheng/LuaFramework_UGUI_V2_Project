@@ -317,6 +317,9 @@
     <Reference Include="Debugger">
       <HintPath>D:/Project/LuaFramework_UGUI_V2_Project/Client/Assets/Plugins/Debugger.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>D:/Project/LuaFramework_UGUI_V2_Project/Client/Assets/Plugins/Json/Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>D:/Project/LuaFramework_UGUI_V2_Project/Client/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
@@ -331,9 +334,6 @@
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>D:/Project/LuaFramework_UGUI_V2_Project/Client/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>D:/Project/LuaFramework_UGUI_V2_Project/Client/Assets/Plugins/Json/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:/U3D/Editor/2019.4.2f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

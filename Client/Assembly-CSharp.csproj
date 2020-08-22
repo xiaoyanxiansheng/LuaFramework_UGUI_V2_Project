@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{12F44184-A422-5F27-22E6-507969043F15}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -225,7 +226,9 @@
     <Compile Include="Assets\LuaFramework\ToLua\Reflection\LuaProperty.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Reflection\LuaReflection.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\BaseWrap.cs" />
+    <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\CommonUtilWrap.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\DelegateFactory.cs" />
+    <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\GameLoggerWrap.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\LuaBinder.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\LuaFramework_AppConstWrap.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\LuaFramework_ByteBufferWrap.cs" />
@@ -245,6 +248,10 @@
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\LuaInterface_LuaInjectionStationWrap.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\LuaProfilerWrap.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\ManagerWrap.cs" />
+    <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\ResourceUtilWrap.cs" />
+    <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\TimerUtilWrap.cs" />
+    <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\UICoreWrap.cs" />
+    <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\UIToolsWrap.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\UnityEngine_AnimationBlendModeWrap.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\UnityEngine_AnimationClipWrap.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\UnityEngine_AnimationStateWrap.cs" />
@@ -316,7 +323,7 @@
     <Compile Include="Assets\Scripts\ResManager\ResourceUtil.cs" />
     <Compile Include="Assets\Scripts\ResManager\ZTest.cs" />
     <Compile Include="Assets\Scripts\UI\UICore.cs" />
-    <Compile Include="Assets\Scripts\UI\WGTest.cs" />
+    <Compile Include="Assets\Scripts\UI\UITools.cs" />
     <None Include="Assets\link.xml" />
     <None Include="Assets\StreamingAssets\files.txt" />
     <None Include="Assets\LuaFramework\ToLua\Injection\InjectionBridgeEditorInfo.xml" />
@@ -533,6 +540,9 @@
     <Reference Include="Debugger">
       <HintPath>D:/Project/LuaFramework_UGUI_V2_Project/Client/Assets/Plugins/Debugger.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>D:/Project/LuaFramework_UGUI_V2_Project/Client/Assets/Plugins/Json/Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>D:/Project/LuaFramework_UGUI_V2_Project/Client/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
@@ -541,9 +551,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>D:/Project/LuaFramework_UGUI_V2_Project/Client/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>D:/Project/LuaFramework_UGUI_V2_Project/Client/Assets/Plugins/Json/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>E:/U3D/Editor/2019.4.2f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

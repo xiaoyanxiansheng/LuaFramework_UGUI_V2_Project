@@ -1,16 +1,8 @@
---主入口函数。从这里开始lua逻辑
-function Main()					
-	print("logic start aaaaaa   ")	 		
-end
+-- 数据和逻辑模块（与引擎无关）
+require "Data/Script/ScriptsRequire"
+-- UI模块
+require "Data/ULua/ULuaRequier"
 
---场景切换通知
-function OnLevelWasLoaded(level)
-	collectgarbage("collect")
-	Time.timeSinceLevelLoad = 0
-end
-
-function OnApplicationQuit()
-end
-
--- 游戏逻辑入口
-require "Data/ULua/System/GameMain"
+function Main()end
+function OnLevelWasLoaded(level)end
+function OnApplicationQuit()end

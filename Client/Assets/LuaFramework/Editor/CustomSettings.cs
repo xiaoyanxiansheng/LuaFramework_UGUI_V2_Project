@@ -63,7 +63,13 @@ public static class CustomSettings
                         
         _GT(typeof(LuaInjectionStation)),
         _GT(typeof(InjectType)),
-        _GT(typeof(Debugger)).SetNameSpace(null),          
+        _GT(typeof(Debugger)).SetNameSpace(null),
+        _GT(typeof(CommonUtil)),
+        _GT(typeof(ResourceUtil)),
+        _GT(typeof(UICore)),
+        _GT(typeof(TimerUtil)),
+        _GT(typeof(GameLogger)),
+        _GT(typeof(UITools)),
 
 #if USING_DOTWEENING
         _GT(typeof(DG.Tweening.DOTween)),

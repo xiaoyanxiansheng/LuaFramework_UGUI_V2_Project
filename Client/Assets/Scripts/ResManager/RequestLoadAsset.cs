@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LuaInterface;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -377,11 +378,20 @@ public class RequestLoadAsset{
     public static int LoadAssetAsync(string assetName, OnLoadAsset onLoadAsset)
     {
         // 回调不存在不允加载
-        if (onLoadAsset == null)
+        if (onLoadAsset == null) 
+        {
+            GameLogger.LogError("[资源加载错误] 加载函数回调不能为空，加载后也没有引用");
             return 0;
+        }
 
         // 资源对应bundle名
         string abName = BundleAsset.GetBundleName(assetName);
+        if (abName == null) 
+        {
+            GameLogger.LogError("[资源加载错误] 找不到资源 " , assetName);
+            return 0;
+        }
+
         // 获取请求ID
         int requestId = ResourceUtil.GetRequestId();
 

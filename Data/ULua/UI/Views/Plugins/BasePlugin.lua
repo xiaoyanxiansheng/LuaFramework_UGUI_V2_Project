@@ -21,8 +21,6 @@ function _M:BindUICore(obj)
 	self:UnBindUIcore()
 	self.core = tempCore
 	self.core:Init(self)
-
-	print("------ BindUICore" )
 end
 
 function _M:UnBindUIcore()
@@ -31,6 +29,4 @@ function _M:UnBindUIcore()
 	end
 	self.core:UnInit(self)
 	self.core = nil
-
-	print("------ UnBindUICore" )
 end

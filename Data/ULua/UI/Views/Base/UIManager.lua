@@ -218,10 +218,6 @@ function _M:GetControlScript(viewName)
 end
 -- 注册控制脚本
 function _M:SetControlScript(viewName,script)
-	if viewName == nil then 
-		error("");
-	end
-		
 	if not self.uiViewScripts[viewName] then
 		self.uiViewScripts[viewName] = script;
 	end

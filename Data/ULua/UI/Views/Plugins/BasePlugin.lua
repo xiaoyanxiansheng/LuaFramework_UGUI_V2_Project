@@ -65,7 +65,7 @@ function _M:DestoryPlugin(plugin)
 	local tempPlugin = plugin or self
 	tempPlugin:UnBindUIcore()
 	tempPlugin:DestoryChildPlugin()
-	if plugin then 
+	if plugin and self.childPlugins ~= nil then 
 		table.Remove(self.childPlugins,plugin,true)
 	end
 

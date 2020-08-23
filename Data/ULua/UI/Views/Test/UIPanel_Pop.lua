@@ -31,5 +31,5 @@ function _M:OnDestory()
 end
 
 function _M:ClickClose(sender)
-	UIManager:Close(UIConst.UIPanel_Pop,true);
+	UIManager:Close(UIConst.UIPanel_Pop);
 end

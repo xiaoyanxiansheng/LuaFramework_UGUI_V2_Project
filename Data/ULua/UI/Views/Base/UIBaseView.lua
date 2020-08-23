@@ -4,6 +4,8 @@ UIBaseView = Class("UIBaseView" , BasePlugin);
 local _M = UIBaseView;
 
 function _M:ctor(name)
+	self.super.ctor(self)
+
 	self.name = name;
 
 	self.params = nil;				-- 页面打开后的参数
@@ -57,7 +59,10 @@ function _M:OnCreateInstance(instanceId)
 	self.uiInstanceId = instanceId;
 	
 	-- 绑定UICore
-	self:BindUICore(GetGameObjectById(self.uiInstanceId));
+	local obj = GetGameObjectById(self.uiInstanceId)
+	if obj ~= nil then 
+		self:BindUICore(obj:GetComponent("UICore"));
+	end	
 	
 	-- 注册UI消息事件
 	self:BaseRegisterMessage();
@@ -141,8 +146,8 @@ function _M:UnInit()
 	-- 1 清理消息
 	self:RemoveRegisterMessage();
 
-	-- 2 解绑UICore
-	self:UnBindUIcore();
+	-- 2 组件清理
+	self:DestoryPlugin();
 
 	-- 3 卸载GameObject
 	DestoryGameObject(self.uiInstanceId);

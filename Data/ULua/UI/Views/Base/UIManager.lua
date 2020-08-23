@@ -88,13 +88,23 @@ function _M:Init(params,initFinishCall,...)
 	end
 
 	-- 2 获取UI集合
-	local viewCollect = self:GetViewCollect(viewScripts);
-	if not viewCollect then
-		print("[ui] UIManager Init error");
-		return;
+	local viewCollect = nil;
+	local hasMainUI = table.find(viewScripts,function(tempView) return tempView:IsMainUI() end);
+	-- 主UI
+	if hasMainUI then 
+		viewCollect = self:GetViewCollect(viewScripts);
+		-- 没有加载过
+		if not viewCollect then 
+			viewCollect = UIBaseCollect.New()
+		end
+	-- 子UI 必须依附一个主UI
+	else
+		-- 先找显示列表然后找加载列表
+		viewCollect = self:GetTopMainViewCollect(self.openViewCollects) or self:GetTopMainViewCollect(self.initViewCollects);
 	end
 
 	-- 3 加载UI集合
+	-- TODO 去重 可能同一个UI在多个集合中
 	self:AddInitViewCollect(viewCollect);
 	viewCollect:Init(params,function()
 			if initFinishCall then 
@@ -108,7 +118,7 @@ end
 function _M:Open(params,...)
 	-- 加载
 	self:Init(params,function(viewCollect)
-		local topViewCollect = self:GetTopShowMainViewCollect();
+		local topViewCollect = self:GetTopMainViewCollect(self.openViewCollects);
 		if topViewCollect and topViewCollect ~= viewCollect then
 			-- 只有主UI并且类型为1的才会进入自动流程
 			if viewCollect:IsMainCollect() then
@@ -142,13 +152,13 @@ function _M:Close(viewName,isDestory)
 		-- 先关闭UI集合 然后在打开上次关闭的UI集合
 		self:RemoveOpenViewCollect(viewCollect);
 		self:CloseViewCollect(viewCollect,function()
-				local topViewCollect = self:GetTopMainViewCollect();
+				local topViewCollect = self:GetTopMainViewCollect(self.openViewCollects);
 				if topViewCollect then 
 					self:OpenViewcCollect(topViewCollect,true);
 				end
 			end,isDestory);
 	else
-		viewCollect:Close(viewScript);
+		viewCollect:Close(viewScript,nil,isDestory);
 	end
 end
 function _M:CloseViewCollect(viewCollect,closeFinishCall,isDestory,isBack)
@@ -167,23 +177,11 @@ end
 --region 不对外提供
 -- 获取显示UI集合(最上层自动流程集合：就是主UI类型为1的UI集合)
 -- 因为主UI分两种：类型1 会被自动打开关闭影响，类型2 不会；这里需要的是类型1的主UI
-function _M:GetTopShowMainViewCollect()
-	local count = #self.openViewCollects;
+function _M:GetTopMainViewCollect(collects)
+	local count = #collects;
 	for i = 1, count do
 		local index = count - i + 1;
-		local viewCollect = self.openViewCollects[index];
-		if viewCollect:IsShow() and viewCollect:IsMainCollect() then
-			return viewCollect;
-		end
-	end
-	return nil;
-end
--- 获得UI集合
-function _M:GetTopMainViewCollect()
-	local count = #self.openViewCollects;
-	for i = 1, count do
-		local index = count - i + 1;
-		local viewCollect = self.openViewCollects[index];
+		local viewCollect = collects[index];
 		if viewCollect:IsMainCollect() then
 			return viewCollect;
 		end
@@ -203,7 +201,7 @@ function _M:GetViewCollect(viewScript)
 			end
 		end
 	end
-	return UIBaseCollect.New();
+	return nil;
 end
 -- 获取控制脚本
 -- 控制UI的行为: 加载 打开 关闭 卸载

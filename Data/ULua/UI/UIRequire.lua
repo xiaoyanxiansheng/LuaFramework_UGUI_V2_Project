@@ -1,3 +1,5 @@
+-- 组件模块
+require "Data/ULua/UI/Views/Plugins/PluginsRequire";
 -- UI常量
 require "Data/ULua/UI/Views/Base/UIConst";
 -- UI页面

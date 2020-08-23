@@ -11,9 +11,8 @@ public static class LuaBinder
 		L.BeginModule(null);
 		LuaInterface_DebuggerWrap.Register(L);
 		CommonUtilWrap.Register(L);
-		ResourceUtilWrap.Register(L);
+		ResourceManagerWrap.Register(L);
 		UICoreWrap.Register(L);
-		TimerUtilWrap.Register(L);
 		GameLoggerWrap.Register(L);
 		UIToolsWrap.Register(L);
 		LuaProfilerWrap.Register(L);
@@ -125,9 +124,6 @@ public static class LuaBinder
 		L.EndModule();
 		L.BeginModule("GameObjectPool");
 		L.RegFunction("OnCreateGameObject", GameObjectPool_OnCreateGameObject);
-		L.EndModule();
-		L.BeginModule("TimerUtil");
-		L.RegFunction("CSFunc", TimerUtil_CSFunc);
 		L.EndModule();
 		L.EndModule();
 		L.BeginPreLoad();
@@ -677,33 +673,6 @@ public static class LuaBinder
 			{
 				LuaTable self = ToLua.CheckLuaTable(L, 2);
 				Delegate arg1 = DelegateTraits<GameObjectPool.OnCreateGameObject>.Create(func, self);
-				ToLua.Push(L, arg1);
-			}
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int TimerUtil_CSFunc(IntPtr L)
-	{
-		try
-		{
-			int count = LuaDLL.lua_gettop(L);
-			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
-
-			if (count == 1)
-			{
-				Delegate arg1 = DelegateTraits<TimerUtil.CSFunc>.Create(func);
-				ToLua.Push(L, arg1);
-			}
-			else
-			{
-				LuaTable self = ToLua.CheckLuaTable(L, 2);
-				Delegate arg1 = DelegateTraits<TimerUtil.CSFunc>.Create(func, self);
 				ToLua.Push(L, arg1);
 			}
 			return 1;

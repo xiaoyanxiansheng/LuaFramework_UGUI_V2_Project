@@ -135,7 +135,7 @@ public class RequestLoadAsset{
         if (!_pendingLoadAssetInfoList.ContainsKey(bundleName))
         {
             // 加载bundle
-            int abRequestId = ResourceUtil.CreateAssetBundleAsync(bundleName, OnLoadPeningBundle);
+            int abRequestId = ResourceManager.CreateAssetBundleAsync(bundleName, OnLoadPeningBundle);
             PendingLoadAssetInfo pendingInfo = new PendingLoadAssetInfo();
             pendingInfo = GetTempPendingLoadAssetInfo();
             pendingInfo.reqeustId = abRequestId;
@@ -240,7 +240,7 @@ public class RequestLoadAsset{
     private static void EnterLoadWait(LoadAssetInfo loadAssetInfo)
     {
         loadAssetInfo.step = LoadAssetStep.LoadWait;
-        if (ResourceUtil.isLog) Debug.Log("loadAsset step 1 EnterLoadWait : " + loadAssetInfo.assetName);
+        if (ResourceManager.isLog) Debug.Log("loadAsset step 1 EnterLoadWait : " + loadAssetInfo.assetName);
     }
     /// <summary>
     /// 进入依赖加载
@@ -249,7 +249,7 @@ public class RequestLoadAsset{
     private static void EnterLoadDepend(LoadAssetInfo loadAssetInfo)
     {
         loadAssetInfo.step = LoadAssetStep.LoadDepend;
-        if (ResourceUtil.isLog) Debug.Log("loadAsset step 2 EnterLoadDepend : " + loadAssetInfo.assetName);
+        if (ResourceManager.isLog) Debug.Log("loadAsset step 2 EnterLoadDepend : " + loadAssetInfo.assetName);
     }
     /// <summary>
     /// 进入加载
@@ -258,7 +258,7 @@ public class RequestLoadAsset{
     private static void EnterLoading(LoadAssetInfo loadAssetInfo)
     {
         loadAssetInfo.step = LoadAssetStep.Loading;
-        if (ResourceUtil.isLog) Debug.Log("loadAsset step 3 EnterLoading : " + loadAssetInfo.assetName);
+        if (ResourceManager.isLog) Debug.Log("loadAsset step 3 EnterLoading : " + loadAssetInfo.assetName);
     }
     /// <summary>
     /// 进入加载回调
@@ -267,7 +267,7 @@ public class RequestLoadAsset{
     private static void EnterWaitCall(LoadAssetInfo loadAssetInfo)
     {
         loadAssetInfo.step = LoadAssetStep.WaitCall;
-        if (ResourceUtil.isLog) Debug.Log("loadAsset step 4 EnterWaitCall : " + loadAssetInfo.assetName);
+        if (ResourceManager.isLog) Debug.Log("loadAsset step 4 EnterWaitCall : " + loadAssetInfo.assetName);
     }
     #endregion
 
@@ -296,7 +296,7 @@ public class RequestLoadAsset{
 
         foreach (LoadAssetInfo loadAssetInfo in loadedAssetInfoList)
         {
-            Object asset = ReferenceObject.GetObject(loadAssetInfo.assetName);
+            Object asset = ReferenceObject.GetPureObject(loadAssetInfo.assetName);
             loadAssetInfo.onLoadAsset(asset, loadAssetInfo.requestId);
             RecoveryLoadAssetInfo(loadAssetInfo);
         }
@@ -393,7 +393,7 @@ public class RequestLoadAsset{
         }
 
         // 获取请求ID
-        int requestId = ResourceUtil.GetRequestId();
+        int requestId = ResourceManager.GetRequestId();
 
         LoadAssetInfo loadAssetInfo = GetTempLoadAssetInfo();
         loadAssetInfo.requestId = requestId;

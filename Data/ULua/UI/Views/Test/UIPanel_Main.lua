@@ -3,6 +3,7 @@
 UIPanel_Main = UIBaseView.New(UIConst.UIPanel_Main);
 
 local _M = UIPanel_Main;
+_M.isMainUI = true
 
 function _M:OnCreate()
     print("UIPanel_Main OnCreate");
@@ -14,6 +15,8 @@ end
 
 function _M:OnShow()
     print("UIPanel_Main OnShow");
+
+    self.text.text = "被lua修改后的文本 我是全屏UI"
 end
 
 function _M:OnClose()

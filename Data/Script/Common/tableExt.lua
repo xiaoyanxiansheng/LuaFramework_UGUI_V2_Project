@@ -94,3 +94,15 @@ function table.Clone(t)
     end
     return tt;
 end
+
+-- 寻找
+function table.find(t,func)
+    if t ~= nil and func ~= nil then 
+        for key, value in pairs(t) do
+            if func(value) then
+                return true;
+            end
+        end
+    end
+    return false;
+end

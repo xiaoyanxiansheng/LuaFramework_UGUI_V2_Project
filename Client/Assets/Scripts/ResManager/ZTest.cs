@@ -42,45 +42,45 @@ public class ZTest : MonoBehaviour {
 	
     void CreateBundle()
     {
-        int requestId = ResourceUtil.CreateAssetBundleAsync(pname, (string tBundleName, AssetBundle tAssetBundle, int tRequestId) =>
+        int requestId = ResourceManager.CreateAssetBundleAsync(pname, (string tBundleName, AssetBundle tAssetBundle, int tRequestId) =>
         {
             Debug.Log("==========================load bundle success " + tBundleName);
             // 卸载
             if (createState == CreateState.Destory)
-                ResourceUtil.DestoryAssetBundle(tBundleName);
+                ResourceManager.DestoryAssetBundle(tBundleName);
         });
         // 取消加载
         if (createState == CreateState.Cancel)
-            ResourceUtil.CancelLoadBundleAsync(requestId);
+            ResourceManager.CancelLoadBundleAsync(requestId);
     }
 
     void CreateAsset()
     {
-        int requestId = ResourceUtil.CreateAssetAsync(pname, (Object asset, int tRequestId) =>
+        int requestId = ResourceManager.CreateAssetAsync(pname, (Object asset, int tRequestId) =>
         {
             Debug.Log("==========================load asset success " + asset);
             // 卸载
             if (createState == CreateState.Destory)
-                ResourceUtil.DestoryAsset(pname);
+                ResourceManager.DestoryAsset(pname);
         });
         // 取消加载
         if (createState == CreateState.Cancel)
-            ResourceUtil.CancelCreateAssetAsync(requestId);
+            ResourceManager.CancelCreateAssetAsync(requestId);
     }
 
     void CreateGameObject()
     {
-        int requestId = ResourceUtil.CreateGameObjectAsync(1,pname, (int tInstanceId,int tRequestId)=> {
+        int requestId = ResourceManager.CreateGameObjectAsync(1,pname, (int tInstanceId,int tRequestId)=> {
             Debug.Log("==========================load gameObject success " + pname);
             GameObject obj = GameObjectPool.GetGameObject(tInstanceId);
             obj.transform.parent = transform;
             // 卸载
             if (createState == CreateState.Destory)
-                ResourceUtil.DestoryGameObject(tInstanceId);
+                ResourceManager.DestoryGameObject(tInstanceId);
         });
         // 取消加载
         if (createState == CreateState.Cancel)
-            ResourceUtil.CancelCreateGameObjectAsync(requestId);
+            ResourceManager.CancelCreateGameObjectAsync(requestId);
     }
 
 	// Update is called once per frame

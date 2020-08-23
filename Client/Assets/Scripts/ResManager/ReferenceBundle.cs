@@ -48,7 +48,7 @@ public class ReferenceBundle {
         // bundle引用为0
         if (br.assetBundle)
         {
-            if (ResourceUtil.isLog) Debug.Log("assetBundle Unload(true) " + bundleName);
+            if (ResourceManager.isLog) Debug.Log("assetBundle Unload(true) " + bundleName);
             br.assetBundle.Unload(true);
         }
 
@@ -175,6 +175,6 @@ public class ReferenceBundle {
 
     private static void LogRefCount(BundleReference br , int addRefCount = 1)
     {
-        if (ResourceUtil.isLog) Debug.Log("assetBundle recCount " + br.bundleName + " " + br.refCount + " " + addRefCount);
+        if (ResourceManager.isLog) Debug.Log("assetBundle recCount " + br.bundleName + " " + br.refCount + " " + addRefCount);
     }
 }

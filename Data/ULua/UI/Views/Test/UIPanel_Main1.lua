@@ -3,6 +3,7 @@
 UIPanel_Main1 = UIBaseView.New(UIConst.UIPanel_Main1);
 
 local _M = UIPanel_Main1;
+_M.isMainUI = true
 
 function _M:OnCreate()
     print("UIPanel_Main1 OnCreate");

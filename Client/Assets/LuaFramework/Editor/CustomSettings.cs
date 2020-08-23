@@ -65,9 +65,8 @@ public static class CustomSettings
         _GT(typeof(InjectType)),
         _GT(typeof(Debugger)).SetNameSpace(null),
         _GT(typeof(CommonUtil)),
-        _GT(typeof(ResourceUtil)),
+        _GT(typeof(ResourceManager)),
         _GT(typeof(UICore)),
-        _GT(typeof(TimerUtil)),
         _GT(typeof(GameLogger)),
         _GT(typeof(UITools)),
 
@@ -161,9 +160,9 @@ public static class CustomSettings
 #else
         _GT(typeof(BlendWeights)),
 #endif
-        _GT(typeof(RenderTexture)), 
-		_GT(typeof(Resources)),      
-		_GT(typeof(LuaProfiler)),
+        _GT(typeof(RenderTexture)),
+        _GT(typeof(Resources)),
+        _GT(typeof(LuaProfiler)),
           
         //for LuaFramework
         _GT(typeof(RectTransform)),
@@ -182,7 +181,7 @@ public static class CustomSettings
         _GT(typeof(TimerManager)),
         _GT(typeof(ThreadManager)),
         _GT(typeof(NetworkManager)),
-        _GT(typeof(ResourceManager)),		  
+        _GT(typeof(LuaFramework.ResourceManager)),		  
     };
 
     public static List<Type> dynamicList = new List<Type>()

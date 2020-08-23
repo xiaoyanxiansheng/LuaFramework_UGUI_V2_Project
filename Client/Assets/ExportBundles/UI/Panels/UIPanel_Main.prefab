@@ -441,7 +441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 0.32941177}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.32941177}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -491,8 +491,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 50, y: -8}
+  m_SizeDelta: {x: 297.6, y: 50.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3210119979824026176
 CanvasRenderer:
@@ -515,7 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -524,10 +524,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -667,19 +667,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1cf7ff0d324ed42875f4926a2e3bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiType: 1
   param:
   - name: btn
     transform: {fileID: 2125630192658245996}
     componentType: 1
     events:
     - EventCallBack: ClickPop
-      eventType: 1
+      eventType: 4
   - name: btn
     transform: {fileID: 7584781980031352658}
     componentType: 1
     events:
     - EventCallBack: ClickFull
-      eventType: 1
+      eventType: 4
+  - name: text
+    transform: {fileID: 7304035592761888176}
+    componentType: 3
+    events: []
+  - name: text
+    transform: {fileID: 7304035592761888176}
+    componentType: 3
+    events: []
   paramArray: []
   cacheParam:
   - name: btn
@@ -687,13 +696,21 @@ MonoBehaviour:
     componentType: 1
     events:
     - EventCallBack: ClickPop
-      eventType: 1
+      eventType: 4
   - name: btn
     transform: {fileID: 7584781980031352658}
     componentType: 1
     events:
     - EventCallBack: ClickFull
-      eventType: 1
+      eventType: 4
+  - name: text
+    transform: {fileID: 7304035592761888176}
+    componentType: 3
+    events: []
+  - name: text
+    transform: {fileID: 7304035592761888176}
+    componentType: 3
+    events: []
 --- !u!1 &7815755838184722656
 GameObject:
   m_ObjectHideFlags: 0

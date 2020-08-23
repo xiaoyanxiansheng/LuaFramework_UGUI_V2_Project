@@ -2,12 +2,13 @@
 using System;
 using LuaInterface;
 
-public class ResourceUtilWrap
+public class ResourceManagerWrap
 {
 	public static void Register(LuaState L)
 	{
-		L.BeginClass(typeof(ResourceUtil), typeof(UnityEngine.MonoBehaviour));
+		L.BeginClass(typeof(ResourceManager), typeof(UnityEngine.MonoBehaviour));
 		L.RegFunction("GetRequestId", GetRequestId);
+		L.RegFunction("GetGameObjectById", GetGameObjectById);
 		L.RegFunction("CreateAssetBundleAsync", CreateAssetBundleAsync);
 		L.RegFunction("CancelLoadBundleAsync", CancelLoadBundleAsync);
 		L.RegFunction("DestoryAssetBundle", DestoryAssetBundle);
@@ -17,7 +18,6 @@ public class ResourceUtilWrap
 		L.RegFunction("CreateGameObjectAsync", CreateGameObjectAsync);
 		L.RegFunction("CancelCreateGameObjectAsync", CancelCreateGameObjectAsync);
 		L.RegFunction("DestoryGameObject", DestoryGameObject);
-		L.RegFunction("GetGameObjectById", GetGameObjectById);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("isLog", get_isLog, set_isLog);
@@ -31,8 +31,25 @@ public class ResourceUtilWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 0);
-			int o = ResourceUtil.GetRequestId();
+			int o = ResourceManager.GetRequestId();
 			LuaDLL.lua_pushinteger(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetGameObjectById(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
+			UnityEngine.GameObject o = ResourceManager.GetGameObjectById(arg0);
+			ToLua.PushSealed(L, o);
 			return 1;
 		}
 		catch (Exception e)
@@ -49,7 +66,7 @@ public class ResourceUtilWrap
 			ToLua.CheckArgsCount(L, 2);
 			string arg0 = ToLua.CheckString(L, 1);
 			RequestLoadBundle.OnCreateAssetBundle arg1 = (RequestLoadBundle.OnCreateAssetBundle)ToLua.CheckDelegate<RequestLoadBundle.OnCreateAssetBundle>(L, 2);
-			int o = ResourceUtil.CreateAssetBundleAsync(arg0, arg1);
+			int o = ResourceManager.CreateAssetBundleAsync(arg0, arg1);
 			LuaDLL.lua_pushinteger(L, o);
 			return 1;
 		}
@@ -66,7 +83,7 @@ public class ResourceUtilWrap
 		{
 			ToLua.CheckArgsCount(L, 1);
 			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
-			ResourceUtil.CancelLoadBundleAsync(arg0);
+			ResourceManager.CancelLoadBundleAsync(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -82,7 +99,7 @@ public class ResourceUtilWrap
 		{
 			ToLua.CheckArgsCount(L, 1);
 			string arg0 = ToLua.CheckString(L, 1);
-			ResourceUtil.DestoryAssetBundle(arg0);
+			ResourceManager.DestoryAssetBundle(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -99,7 +116,7 @@ public class ResourceUtilWrap
 			ToLua.CheckArgsCount(L, 2);
 			string arg0 = ToLua.CheckString(L, 1);
 			RequestLoadAsset.OnLoadAsset arg1 = (RequestLoadAsset.OnLoadAsset)ToLua.CheckDelegate<RequestLoadAsset.OnLoadAsset>(L, 2);
-			int o = ResourceUtil.CreateAssetAsync(arg0, arg1);
+			int o = ResourceManager.CreateAssetAsync(arg0, arg1);
 			LuaDLL.lua_pushinteger(L, o);
 			return 1;
 		}
@@ -116,7 +133,7 @@ public class ResourceUtilWrap
 		{
 			ToLua.CheckArgsCount(L, 1);
 			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
-			ResourceUtil.CancelCreateAssetAsync(arg0);
+			ResourceManager.CancelCreateAssetAsync(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -132,7 +149,7 @@ public class ResourceUtilWrap
 		{
 			ToLua.CheckArgsCount(L, 1);
 			string arg0 = ToLua.CheckString(L, 1);
-			ResourceUtil.DestoryAsset(arg0);
+			ResourceManager.DestoryAsset(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -150,7 +167,7 @@ public class ResourceUtilWrap
 			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
 			string arg1 = ToLua.CheckString(L, 2);
 			GameObjectPool.OnCreateGameObject arg2 = (GameObjectPool.OnCreateGameObject)ToLua.CheckDelegate<GameObjectPool.OnCreateGameObject>(L, 3);
-			int o = ResourceUtil.CreateGameObjectAsync(arg0, arg1, arg2);
+			int o = ResourceManager.CreateGameObjectAsync(arg0, arg1, arg2);
 			LuaDLL.lua_pushinteger(L, o);
 			return 1;
 		}
@@ -167,7 +184,7 @@ public class ResourceUtilWrap
 		{
 			ToLua.CheckArgsCount(L, 1);
 			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
-			ResourceUtil.CancelCreateGameObjectAsync(arg0);
+			ResourceManager.CancelCreateGameObjectAsync(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -183,25 +200,8 @@ public class ResourceUtilWrap
 		{
 			ToLua.CheckArgsCount(L, 1);
 			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
-			ResourceUtil.DestoryGameObject(arg0);
+			ResourceManager.DestoryGameObject(arg0);
 			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int GetGameObjectById(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 1);
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
-			UnityEngine.GameObject o = ResourceUtil.GetGameObjectById(arg0);
-			ToLua.PushSealed(L, o);
-			return 1;
 		}
 		catch (Exception e)
 		{
@@ -232,7 +232,7 @@ public class ResourceUtilWrap
 	{
 		try
 		{
-			LuaDLL.lua_pushboolean(L, ResourceUtil.isLog);
+			LuaDLL.lua_pushboolean(L, ResourceManager.isLog);
 			return 1;
 		}
 		catch (Exception e)
@@ -246,7 +246,7 @@ public class ResourceUtilWrap
 	{
 		try
 		{
-			LuaDLL.lua_pushinteger(L, ResourceUtil.requestId);
+			LuaDLL.lua_pushinteger(L, ResourceManager.requestId);
 			return 1;
 		}
 		catch (Exception e)
@@ -261,7 +261,7 @@ public class ResourceUtilWrap
 		try
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
-			ResourceUtil.isLog = arg0;
+			ResourceManager.isLog = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -276,7 +276,7 @@ public class ResourceUtilWrap
 		try
 		{
 			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
-			ResourceUtil.requestId = arg0;
+			ResourceManager.requestId = arg0;
 			return 0;
 		}
 		catch (Exception e)

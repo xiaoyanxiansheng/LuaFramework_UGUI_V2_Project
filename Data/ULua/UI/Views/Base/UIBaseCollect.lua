@@ -172,7 +172,7 @@ end
 -- 是否全部是子UI
 function _M:IsAllSonUI()
 	for k,v in pairs(self.openingViews) do
-		if not v:IsSonUI() then
+		if v:IsMainUI() then
 			return false;
 		end
 	end

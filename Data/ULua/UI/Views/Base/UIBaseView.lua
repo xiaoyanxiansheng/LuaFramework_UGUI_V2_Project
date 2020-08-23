@@ -1,11 +1,5 @@
---[[
-	UI分类
-		1 主UI(自动流程)：每个UI集合必须有一个，打开UI集合前需要关闭当前UI集合，这时只需要处理打开逻辑就行；关闭当前UI集合后需要打开上次关闭的UI集合，这时只需要处理关闭逻辑就行。
-		2 主UI(手动流程)：每个UI集合必须有一个，不受自动打开和关闭的影响。比如一些弹出框。
-		3 子UI：和主UI一起构成UI集合
---]]
 ---@class UIBaseView
-UIBaseView = Class("UIBaseView");
+UIBaseView = Class("UIBaseView" , BasePlugin);
 
 local _M = UIBaseView;
 
@@ -17,7 +11,6 @@ function _M:ctor(name)
 	self.uiInitRequestId = 0;		-- 异步请求ID
 	self.uiInitFinishCall = nil;	-- 请求加载完成后的回调
 	self.uiInstanceId = 0;			-- UI的实例ID
-	self.uiBindCore = nil;			-- 绑定Prefab中节点控件
 
 	self.registerMessages = nil;	-- 注册的消息
 
@@ -56,7 +49,7 @@ end
 function _M:OnCreateInstance(instanceId)
 	self:CloseFullScreenMask();
 	if instanceId == 0 then
-		print("OnCreateInstance is error " ,self.name);
+		print("[ui] OnCreateInstance is error " ,self.name);
 		return;
 	end
 	
@@ -64,7 +57,7 @@ function _M:OnCreateInstance(instanceId)
 	self.uiInstanceId = instanceId;
 	
 	-- 绑定UICore
-	self:BindUICore();
+	self:BindUICore(GetGameObjectById(self.uiInstanceId));
 	
 	-- 注册UI消息事件
 	self:BaseRegisterMessage();
@@ -106,7 +99,7 @@ function _M:Close(isDestory,closeFinishCall)
 	-- 2 关闭GameObject
 	local obj = GetGameObjectById(self.uiInstanceId);
 	if not obj then 
-		print("Close is error " .. self.name);
+		print("[ui] Close is error " .. self.name);
 		return;
 	end
 	self.isShow = false;
@@ -123,7 +116,6 @@ function _M:CloseAfter(isDestory,closeFinishCall)
 	if closeFinishCall then
 		closeFinishCall();
 	end
-	
 	if isDestory then
 		self:UnInit();
 	end
@@ -132,7 +124,7 @@ end
 -- 卸载
 function _M:UnInit()
 	if self:IsShow() then
-		print("please close it first");
+		print("[ui] please close it first");
 		return
 	end
 	-- 加载中
@@ -211,26 +203,6 @@ function _M:OnDestory()
 	-- 子类重写
 end
 
--- 绑定UI控制：目的是为了让脚本方便的获取需要的节点或者控件
-function _M:BindUICore()
-	local obj = GetGameObjectById(self.uiInstanceId);
-	if not obj then 
-		print("BindUICore is error " .. self.name);
-		return;
-	end
-	self.uiBindCore = obj.transform:GetComponent("UICore");
-	if self.uiBindCore then 
-		self.uiBindCore:Init(self);
-	end
-end
--- 解绑UICore：绑定的UI控件是当前的，如果卸载后再加载，里面保存的将是上一个UI的控件，所以需要删除
-function _M:UnBindUIcore()
-	if not self.uiBindCore then 
-		return;
-	end
-	self.uiBindCore:UnInit();
-end
-
 -- 事件
 function _M:BaseRegisterMessage()
 	self:OnRegisterMessage();
@@ -275,20 +247,6 @@ function _M:ReleaseAtlas()
 	-- TODO 目前不处理UI和图集分离
 end
 
-function _M:AddUILayerHelper(layer)
-	local obj = GetGameObjectById(self.uiInstanceId);
-	if not obj then 
-		print("AddUILayerHelper is error " .. self.name);
-		return;
-	end
-	local addLayer = layer * 100;
-	local panels = CommonUtil.GetUIPanels(obj);
-	-- C#中的用法 在lua中显得很另类
-	for i = 0, panels.Length - 1 do
-		panels[i].depth = panels[i].depth + addLayer;
-	end
-end
-
 -- TODO 全屏遮罩处理
 function _M:ShowFullScreenMask()
 	-- TODO
@@ -297,17 +255,9 @@ function _M:CloseFullScreenMask()
 	-- TODO
 end
 
--- 主UI(自动流程) 文件头有解释
+-- 主UI(自动流程)：每个UI集合必须有一个，打开UI集合前需要关闭当前UI集合，这时只需要处理打开逻辑就行；关闭当前UI集合后需要打开上次关闭的UI集合，这时只需要处理关闭逻辑就行。
 function _M:IsMainUI()
-	return self.uiType == 1
-end
--- 主UI(手动流程) 文件头有解释
-function _M:IsIgnoreMainUI()
-	return self.uiType == 2
-end
--- 子UI
-function _M:IsSonUI()
-	return self.uiType == 3
+	return self.isMainUI
 end
 
 -- 加载中
@@ -324,9 +274,12 @@ function _M:IsShow()
 end
 -- 通过路径获取节点
 function _M:GetNode(path)
-	local trans = self.uiBindCore.transform:FindChild(path);
-	if trans then
-		return trans.gameObject;
+	local obj = GetGameObjectById(self.uiInstanceId);
+	if obj ~= nil then 
+		local trans = obj.transform.Find(path)
+		if trans ~= nil then 
+			return trans.gameObject
+		end
 	end
 	return nil;
 end

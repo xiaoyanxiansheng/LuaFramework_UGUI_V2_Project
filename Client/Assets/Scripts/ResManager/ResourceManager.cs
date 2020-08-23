@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ResourceUtil : MonoBehaviour{
+public class ResourceManager : MonoBehaviour{
 
     public static bool isLog = false;
 
@@ -13,6 +13,11 @@ public class ResourceUtil : MonoBehaviour{
     public static int GetRequestId()
     {
         return ++requestId;
+    }
+
+    public static GameObject GetGameObjectById(int instanceId)
+    {
+        return GameObjectPool.GetGameObject(instanceId);
     }
 
     #region 加载bundle
@@ -29,6 +34,7 @@ public class ResourceUtil : MonoBehaviour{
         ReferenceBundle.ReleaseBundle(bundleName);
     }
     #endregion
+
     #region 加载资源
     public static int CreateAssetAsync(string assetName , RequestLoadAsset.OnLoadAsset onLoadAsset)
     {
@@ -62,11 +68,6 @@ public class ResourceUtil : MonoBehaviour{
         GameObjectPool.DestoryGameObject(instanceId);
     }
     #endregion
-
-    public static GameObject GetGameObjectById(int instanceId)
-    {
-        return GameObjectPool.GetGameObject(instanceId);
-    }
 
     #region 资源流程相关
     void Start()

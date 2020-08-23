@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using LuaInterface;
-using UnityEngine.Analytics;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using EventTrigger = UnityEngine.EventSystems.EventTrigger;
@@ -10,32 +9,19 @@ using UnityEngine.Events;
 public class UICore : MonoBehaviour {
 
     #region enum
-    // UI 类型
-    public enum UIType 
-    {
-        MainUI = 1,
-        PopUI,
-        SonUI,
-    }
     // 控件类型
     public enum ComponentType
     {
-        Transform,
         GameObject,
+        Transform,
         Canvas,
-        Label,
+        Text,
         Input,
         Button,
-        Texture,
+        Image,
+        RawImg,
         Toggle,
         UICore,
-    }
-
-    public enum EventType
-    {
-        Null,
-        PointerClick,
-        Press,
     }
     #endregion
 
@@ -44,7 +30,7 @@ public class UICore : MonoBehaviour {
     public class ParamEvent
     {
         public string EventCallBack;
-        public EventType eventType = EventType.Null;
+        public EventTriggerType eventType = EventTriggerType.PointerClick;
     }
 
     [System.Serializable]
@@ -78,7 +64,6 @@ public class UICore : MonoBehaviour {
     #endregion
 
     #region menber
-    public UIType uiType = UIType.MainUI;
     public List<Param> param = new List<Param>();
     public List<ParamArray> paramArray = new List<ParamArray>();
 
@@ -99,9 +84,22 @@ public class UICore : MonoBehaviour {
             BindingWidget(t,cacheParam[i]);
         }
     }
-    public void UnInit()
+    public void UnInit(LuaTable t)
     {
+        for (int i = 0; i < cacheParam.Count; i++)
+        {
+            Param para = cacheParam[i];
 
+            // 解绑字段
+            t[para.name] = null;
+
+            // 解绑事件
+            var eventCom = para.transform.gameObject.GetComponent<EventTrigger>();
+            if (eventCom != null) 
+            {
+                eventCom.triggers.Clear();
+            }
+        }
     }
 
     public void BindingWidget(LuaTable t,Param param)
@@ -116,17 +114,29 @@ public class UICore : MonoBehaviour {
         GameObject go = trans.gameObject;
         ComponentType componentType = param.componentType;
         // 引用绑定
-        if (componentType == ComponentType.Transform)
+        switch (componentType) 
         {
-            t[name] = trans;
-        }
-        else if (componentType == ComponentType.Input)
-        {
-            //t[name] = go.GetComponent<UIInput>();
-        }
-        else if (componentType == ComponentType.Label)
-        {
-            //t[name] = go.GetComponent<UILabel>();
+            case ComponentType.GameObject:
+                t[name] = go; break;
+            case ComponentType.Transform:
+                t[name] = trans; break;
+            case ComponentType.Canvas:
+                t[name] = go.GetComponent<Canvas>(); break;
+            case ComponentType.Text:
+                t[name] = go.GetComponent<Text>();break;
+            case ComponentType.Input:
+                t[name] = go.GetComponent<InputField>(); break;
+            case ComponentType.Button:
+                t[name] = go.GetComponent<Button>(); break;
+            case ComponentType.Image:
+                t[name] = go.GetComponent<Image>(); break;
+            case ComponentType.RawImg:
+                t[name] = go.GetComponent<RawImage>(); break;
+            case ComponentType.Toggle:
+                t[name] = go.GetComponent<Toggle>();break;
+            case ComponentType.UICore:
+                t[name] = go.GetComponent<UICore>();break;
+            default:break;
         }
 
         // 事件绑定
@@ -135,11 +145,9 @@ public class UICore : MonoBehaviour {
         {
             RegisterCallBack(t, events[i].EventCallBack, param.transform.gameObject, events[i].eventType);
         }
-
-        t["uiType"] = (int)this.uiType;
     }
 
-    public void RegisterCallBack(LuaTable t ,string luaFactionName, GameObject go ,EventType eventType)
+    public void RegisterCallBack(LuaTable t ,string luaFactionName, GameObject go , EventTriggerType eventType)
     {
         if (luaFactionName == "")
             return;
@@ -150,22 +158,15 @@ public class UICore : MonoBehaviour {
             return;
         }
 
-        if (eventType == EventType.PointerClick)
-        {
-            var eventCom = go.GetComponent<EventTrigger>();
-            if (eventCom == null) eventCom = go.AddComponent<EventTrigger>();
-            EventTrigger.Entry entry = new EventTrigger.Entry();
-            entry.eventID = EventTriggerType.PointerClick;
-            UnityAction<BaseEventData> unityAction = (BaseEventData sender) => {
-                luaFunction.Call(t, sender);
-            };
-            entry.callback.AddListener(unityAction);
-            eventCom.triggers.Add(entry);
-            //UIEventListener.Get(go).onClick = (GameObject sender) => { luaFunction.Call(t,sender); };
-        }
-        else {
-            Debug.LogError("please add new a EventType");
-        }
+        var eventCom = go.GetComponent<EventTrigger>();
+        if (eventCom == null) eventCom = go.AddComponent<EventTrigger>();
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = eventType;
+        UnityAction<BaseEventData> unityAction = (BaseEventData sender) => {
+            luaFunction.Call(t, sender);
+        };
+        entry.callback.AddListener(unityAction);
+        eventCom.triggers.Add(entry);
     }
 
     public void BindAllWidgets()

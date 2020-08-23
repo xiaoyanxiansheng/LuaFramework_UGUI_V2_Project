@@ -57,7 +57,7 @@ public class ReferenceObject {
     private static void DestroyObject(ObjectReference or)
     {
         // 删除自己
-        if (ResourceUtil.isLog) Debug.Log("UnloadAsset " + or.assetName);
+        if (ResourceManager.isLog) Debug.Log("UnloadAsset " + or.assetName);
         if (!(or.obj is GameObject))
             Resources.UnloadAsset(or.obj);
         //else
@@ -98,7 +98,7 @@ public class ReferenceObject {
 
     private static void LogRefCount(ObjectReference or, int addRefCount = 1)
     {
-        if (ResourceUtil.isLog) Debug.Log("asset recCount " + or.assetName + " " + or.refCount + " " + addRefCount);
+        if (ResourceManager.isLog) Debug.Log("asset recCount " + or.assetName + " " + or.refCount + " " + addRefCount);
     }
     #endregion
 
@@ -142,6 +142,15 @@ public class ReferenceObject {
         {
             or.refCount++;
             LogRefCount(or,1);
+            return or.obj;
+        }
+        return null;
+    }
+    public static Object GetPureObject(string assetName) 
+    {
+        ObjectReference or = null;
+        if (_objectReferenceList.TryGetValue(assetName, out or))
+        {
             return or.obj;
         }
         return null;

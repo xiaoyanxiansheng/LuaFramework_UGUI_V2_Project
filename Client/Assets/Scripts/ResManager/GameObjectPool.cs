@@ -46,7 +46,7 @@ public class GameObjectPool {
             GameObject.Destroy(gameObjectRef.obj);
             ReferenceObject.ReleaseObject(gameObjectRef.assetName);
         }
-        if (ResourceUtil.isLog) Debug.Log("gameObejct Destory " + gameObjectRef.assetName);
+        if (ResourceManager.isLog) Debug.Log("gameObejct Destory " + gameObjectRef.assetName);
         if (_gameObjectRef.ContainsKey(gameObjectRef.instanceId))
             _gameObjectRef.Remove(gameObjectRef.instanceId);
         gameObjectRef.Clear();
@@ -62,7 +62,7 @@ public class GameObjectPool {
             return 0;
         }
 
-        if (ResourceUtil.isLog) Debug.Log("gameObject create " + assetName);
+        if (ResourceManager.isLog) Debug.Log("gameObject create " + assetName);
 
         GameObject obj = (GameObject)GameObject.Instantiate(asset,Vector3.zero,Quaternion.identity);
         obj = InitGameObject(type, obj, assetName);

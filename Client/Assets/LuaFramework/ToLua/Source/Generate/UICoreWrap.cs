@@ -15,7 +15,6 @@ public class UICoreWrap
 		L.RegFunction("BindAllWidgetsHelper", BindAllWidgetsHelper);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("uiType", get_uiType, set_uiType);
 		L.RegVar("param", get_param, set_param);
 		L.RegVar("paramArray", get_paramArray, set_paramArray);
 		L.RegVar("cacheParam", get_cacheParam, set_cacheParam);
@@ -44,9 +43,10 @@ public class UICoreWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 1);
+			ToLua.CheckArgsCount(L, 2);
 			UICore obj = (UICore)ToLua.CheckObject<UICore>(L, 1);
-			obj.UnInit();
+			LuaTable arg0 = ToLua.CheckLuaTable(L, 2);
+			obj.UnInit(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -83,7 +83,7 @@ public class UICoreWrap
 			LuaTable arg0 = ToLua.CheckLuaTable(L, 2);
 			string arg1 = ToLua.CheckString(L, 3);
 			UnityEngine.GameObject arg2 = (UnityEngine.GameObject)ToLua.CheckObject(L, 4, typeof(UnityEngine.GameObject));
-			UICore.EventType arg3 = (UICore.EventType)ToLua.CheckObject(L, 5, typeof(UICore.EventType));
+			UnityEngine.EventSystems.EventTriggerType arg3 = (UnityEngine.EventSystems.EventTriggerType)ToLua.CheckObject(L, 5, typeof(UnityEngine.EventSystems.EventTriggerType));
 			obj.RegisterCallBack(arg0, arg1, arg2, arg3);
 			return 0;
 		}
@@ -167,25 +167,6 @@ public class UICoreWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_uiType(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			UICore obj = (UICore)o;
-			UICore.UIType ret = obj.uiType;
-			ToLua.Push(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index uiType on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_param(IntPtr L)
 	{
 		object o = null;
@@ -239,25 +220,6 @@ public class UICoreWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cacheParam on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_uiType(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			UICore obj = (UICore)o;
-			UICore.UIType arg0 = (UICore.UIType)ToLua.CheckObject(L, 2, typeof(UICore.UIType));
-			obj.uiType = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index uiType on a nil value");
 		}
 	}
 

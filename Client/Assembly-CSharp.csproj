@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{12F44184-A422-5F27-22E6-507969043F15}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -248,8 +247,7 @@
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\LuaInterface_LuaInjectionStationWrap.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\LuaProfilerWrap.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\ManagerWrap.cs" />
-    <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\ResourceUtilWrap.cs" />
-    <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\TimerUtilWrap.cs" />
+    <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\ResourceManagerWrap.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\UICoreWrap.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\UIToolsWrap.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Source\Generate\UnityEngine_AnimationBlendModeWrap.cs" />
@@ -312,7 +310,6 @@
     <Compile Include="Assets\Scripts\Common\CommonUtil.cs" />
     <Compile Include="Assets\Scripts\Common\GameLogger.cs" />
     <Compile Include="Assets\Scripts\Common\PathDefines.cs" />
-    <Compile Include="Assets\Scripts\Common\TimerUtil.cs" />
     <Compile Include="Assets\Scripts\ResManager\BundleAsset.cs" />
     <Compile Include="Assets\Scripts\ResManager\BundleDependencies.cs" />
     <Compile Include="Assets\Scripts\ResManager\GameObjectPool.cs" />
@@ -320,7 +317,7 @@
     <Compile Include="Assets\Scripts\ResManager\ReferenceObject.cs" />
     <Compile Include="Assets\Scripts\ResManager\RequestLoadAsset.cs" />
     <Compile Include="Assets\Scripts\ResManager\RequestLoadBundle.cs" />
-    <Compile Include="Assets\Scripts\ResManager\ResourceUtil.cs" />
+    <Compile Include="Assets\Scripts\ResManager\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\ResManager\ZTest.cs" />
     <Compile Include="Assets\Scripts\UI\UICore.cs" />
     <Compile Include="Assets\Scripts\UI\UITools.cs" />

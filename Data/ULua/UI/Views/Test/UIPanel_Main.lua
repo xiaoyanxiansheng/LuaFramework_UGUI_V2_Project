@@ -16,7 +16,7 @@ end
 function _M:OnShow()
     printUILog("UIPanel_Main OnShow");
 
-    self.text.text = "被lua修改后的文本 我是全屏UI"
+    -- self.text.text = "被lua修改后的文本 我是全屏UI"
 end
 
 function _M:OnClose()
@@ -32,5 +32,5 @@ function _M:ClickPop(sender)
 end
 
 function _M:ClickFull(sender)
-    UIManager:Open(nil,UIConst.UIPanel_Main1,UIConst.UIPanel_Pop);
+    UIManager:Open(nil,UIConst.UIPanel_Main1);
 end

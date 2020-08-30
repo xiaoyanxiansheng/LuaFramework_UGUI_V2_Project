@@ -491,7 +491,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: -8}
+  m_AnchoredPosition: {x: 114, y: -8}
   m_SizeDelta: {x: 297.6, y: 50.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3210119979824026176
@@ -535,7 +535,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6211\u662F\u4E00\u4E2A\u5168\u5C4FUI"
+  m_Text: "\u4E3BUI"
 --- !u!1 &7117721404937309300
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,7 +667,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1cf7ff0d324ed42875f4926a2e3bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiType: 1
   param:
   - name: btn
     transform: {fileID: 2125630192658245996}

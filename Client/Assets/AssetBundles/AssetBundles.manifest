@@ -1,16 +1,16 @@
 ManifestFileVersion: 0
-CRC: 2226130040
+CRC: 3414571260
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: ui/panels/uipanel_base
-      Dependencies: {}
-    Info_1:
       Name: ui/panels/uipanel_main
       Dependencies: {}
+    Info_1:
+      Name: ui/panels/uipanel_base
+      Dependencies: {}
     Info_2:
-      Name: ui/panels/uipanel_main1
+      Name: ui/panels/uipanel_pop
       Dependencies: {}
     Info_3:
-      Name: ui/panels/uipanel_pop
+      Name: ui/panels/uipanel_main1
       Dependencies: {}

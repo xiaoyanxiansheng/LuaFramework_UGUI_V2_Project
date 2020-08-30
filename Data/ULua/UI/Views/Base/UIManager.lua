@@ -1,6 +1,11 @@
 --[[
-	UI对外部提供的管理类
+	UI页面管理器
 	加载 打开 关闭 卸载
+
+	打开 UIManager:Open(params,...) ... 是uiname的多参
+	关闭 UIManger:Close(uiname,isDestory) 
+		如果uiname是当前ui集合(UIBaseCollect)的主UI则关闭绑定的所有UI
+		否则只是关闭自己
 --]]
 
 UIManager = {
@@ -34,7 +39,7 @@ function _M:InitData()
 			-- 根节点加载完成之后UI相关的流程才真正开始
 			self:ReaddyFinish();
 		else
-			print("[ui] GameMian is error " .. UIRootName);
+			printUILog("[ui] GameMian is error " .. UIRootName);
 		end
 	end);
 end
@@ -79,7 +84,7 @@ function _M:Init(params,initFinishCall,...)
 	local viewNames = {...};
 
 	if #viewNames == 0 then 
-		print("[ui] Init views is 0")
+		printUILog("[ui] Init views is 0")
 		return;
 	end
 
@@ -145,7 +150,7 @@ function _M:Close(viewName,isDestory)
 	local viewScript = self:GetControlScript(viewName);
 	local viewCollect = self:GetViewCollect(viewScript);
 	if not viewCollect then
-		print("[ui] Close error");
+		printUILog("[ui] Close error");
 		return;
 	end
 	if viewScript:IsMainUI() then
@@ -176,7 +181,6 @@ end
 
 --region 不对外提供
 -- 获取显示UI集合(最上层自动流程集合：就是主UI类型为1的UI集合)
--- 因为主UI分两种：类型1 会被自动打开关闭影响，类型2 不会；这里需要的是类型1的主UI
 function _M:GetTopMainViewCollect(collects)
 	local count = #collects;
 	for i = 1, count do
@@ -211,7 +215,7 @@ function _M:GetControlScript(viewName)
 		if scriptPath then
 			require(scriptPath);
 		else
-			print("[ui] GetControlScript error " .. viewName);
+			printUILog("[ui] GetControlScript error " .. viewName);
 		end
 	end
 	return self.uiViewScripts[viewName];

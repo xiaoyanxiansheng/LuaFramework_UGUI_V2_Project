@@ -5,11 +5,11 @@ TestPlugin = Class("TestPlugin" , BasePlugin)
 local _M = TestPlugin
 
 function _M:OnCreate()
-    print("[组件] 创建 TestPlugin")
+    printUILog("[组件] 创建 TestPlugin")
 end
 
 function _M:OnDestory()
-    print("[组件] 销毁 TestPlugin")
+    printUILog("[组件] 销毁 TestPlugin")
 end
 
 function _M:Show()

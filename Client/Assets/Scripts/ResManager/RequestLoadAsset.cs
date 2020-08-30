@@ -108,6 +108,7 @@ public class RequestLoadAsset{
     /// <param name="abRequestId"></param>
     private static void OnLoadPeningBundle(string bundleName, AssetBundle assetBundle, int abRequestId)
     {
+        if (bundleName != assetBundle.name) return;
         PendingLoadAssetInfo peningInfo = _pendingLoadAssetInfoList[bundleName];
         if (peningInfo == null) return;
 

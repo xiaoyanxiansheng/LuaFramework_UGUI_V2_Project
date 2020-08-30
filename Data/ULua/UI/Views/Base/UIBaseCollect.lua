@@ -1,6 +1,12 @@
 --[[
-	UI收集器
-	作用：当我们需要同时打开多个页面的时候将其组成一个集合
+	UI集合
+	一个真正的显示在屏幕的UI，会由多个UIBaseView组合而成
+	这样做的目的是为了做页面拆分
+
+	UIBaseCollect
+		UIBaseView1
+		UIBaseView2
+		...
 --]]
 ---@class UIBaseCollect
 UIBaseCollect = Class("UIBaseCollect");
@@ -189,11 +195,11 @@ end
 -- 检查有效性
 function _M:CheckViews(views)
 	if not views then
-		print("views is nil");
+		printUILog("views is nil");
 		return false;
 	end
 	if #views == 0 then
-		print("view is empty");
+		printUILog("view is empty");
 		return false;
 	end
 

@@ -1,4 +1,8 @@
----@class UIBaseView
+--[[
+	单个UI界面（一个prefab）
+
+	会被UIBaseCollect管理
+--]]
 UIBaseView = Class("UIBaseView" , BasePlugin);
 
 local _M = UIBaseView;
@@ -51,7 +55,7 @@ end
 function _M:OnCreateInstance(instanceId)
 	self:CloseFullScreenMask();
 	if instanceId == 0 then
-		print("[ui] OnCreateInstance is error " ,self.name);
+		printUILog("[ui] OnCreateInstance is error " ,self.name);
 		return;
 	end
 	
@@ -104,7 +108,7 @@ function _M:Close(isDestory,closeFinishCall)
 	-- 2 关闭GameObject
 	local obj = GetGameObjectById(self.uiInstanceId);
 	if not obj then 
-		print("[ui] Close is error " .. self.name);
+		printUILog("[ui] Close is error " .. self.name);
 		return;
 	end
 	self.isShow = false;
@@ -129,7 +133,7 @@ end
 -- 卸载
 function _M:UnInit()
 	if self:IsShow() then
-		print("[ui] please close it first");
+		printUILog("[ui] please close it first");
 		return
 	end
 	-- 加载中

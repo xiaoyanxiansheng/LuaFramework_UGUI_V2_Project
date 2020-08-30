@@ -1,3 +1,12 @@
+-- UI模块打印开关
+LOG_UI = true;
+function printUILog(...)
+    if LOG_UI then 
+        local debugInfo = debug.getinfo(2,"nSl")
+        print(debugInfo.short_src.." " ..debugInfo.name..":"..debugInfo.currentline,...)
+    end
+end
+
 -- 组件模块
 require "Data/ULua/UI/Views/Plugins/PluginsRequire";
 -- UI常量

@@ -30,6 +30,7 @@ public class ReferenceBundle {
         if (_freeBundleReferenceList.Count > 0)
         {
             br = _freeBundleReferenceList[0];
+            _freeBundleReferenceList.RemoveAt(0);
         }
         else
         {

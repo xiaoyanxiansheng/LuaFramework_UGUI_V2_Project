@@ -6,23 +6,23 @@ local _M = UIPanel_Main1;
 _M.isMainUI = true
 
 function _M:OnCreate()
-    print("UIPanel_Main1 OnCreate");
+    printUILog("UIPanel_Main1 OnCreate");
 end
 
 function _M:OnRegisterMessage()
-    print("UIPanel_Main1 OnRegisterMessage");
+    printUILog("UIPanel_Main1 OnRegisterMessage");
 end
 
 function _M:OnShow()
-    print("UIPanel_Main1 OnShow");
+    printUILog("UIPanel_Main1 OnShow");
 end
 
 function _M:OnClose()
-    print("UIPanel_Main1 OnClose");
+    printUILog("UIPanel_Main1 OnClose");
 end
 
 function _M:OnDestory()
-    print("UIPanel_Main1 OnDestory");
+    printUILog("UIPanel_Main1 OnDestory");
 end
 
 function _M:ClickClose(sender)
